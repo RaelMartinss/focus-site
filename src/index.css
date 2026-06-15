@@ -35,6 +35,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+::selection {
+  background: rgba(244, 117, 33, 0.35);
+  color: #fff;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -94,13 +99,29 @@ h3 {
 }
 
 .btn-primary {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, var(--orange), var(--orange-2));
   color: #fff;
   box-shadow: 0 8px 24px rgba(244, 117, 33, 0.35);
 }
 
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: -50% auto -50% -45%;
+  width: 28%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+}
+
 .btn-primary:hover {
   box-shadow: 0 12px 30px rgba(244, 117, 33, 0.5);
+}
+
+.btn-primary:hover::after {
+  left: 120%;
 }
 
 .btn-whatsapp {
@@ -150,4 +171,38 @@ h3 {
   margin-top: 14px;
   font-size: 1.05rem;
   line-height: 1.6;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease var(--reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
 }

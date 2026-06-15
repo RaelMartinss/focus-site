@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import Logo from "./Logo";
 
 export default function Footer() {
@@ -37,9 +37,9 @@ export default function Footer() {
           <h4>Atendimento</h4>
           <span className="footer__line">Segunda a Sexta · 8h às 18h</span>
           <span className="footer__line">Suporte técnico 24/7</span>
-          <a className="btn btn-whatsapp footer__wa" href="https://wa.me/5500000000000" target="_blank" rel="noreferrer">
-            Fale no WhatsApp
-          </a>
+           <a className="btn btn-whatsapp footer__wa" href="https://wa.me/5500000000000" target="_blank" rel="noreferrer">
+              <MessageCircle size={19} /> Fale no WhatsApp
+            </a>
         </div>
       </div>
 

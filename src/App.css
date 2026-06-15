@@ -36,6 +36,7 @@
   align-items: center;
   justify-content: space-between;
   height: 74px;
+  animation: hero-enter 0.7s ease both;
 }
 .navbar__links {
   display: flex;
@@ -84,6 +85,19 @@
     linear-gradient(180deg, rgba(7, 11, 22, 0.55) 0%, transparent 35%, rgba(7, 11, 22, 0.65) 100%);
   pointer-events: none;
 }
+.hero-section::after {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  right: -180px;
+  bottom: -300px;
+  border-radius: 50%;
+  background: rgba(244, 117, 33, 0.13);
+  filter: blur(90px);
+  animation: ambient-glow 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
 .hero-section__inner {
   position: relative;
   z-index: 2;
@@ -103,6 +117,7 @@
   padding: 7px 15px;
   border-radius: 100px;
   margin-bottom: 24px;
+  animation: hero-enter 0.65s 0.12s ease both;
 }
 .hero-badge__dot {
   width: 8px;
@@ -110,11 +125,13 @@
   border-radius: 50%;
   background: var(--orange);
   box-shadow: 0 0 0 4px rgba(244, 117, 33, 0.25);
+  animation: beacon 2s ease-out infinite;
 }
 .hero-section h1 {
   font-size: clamp(2.2rem, 4.6vw, 3.5rem);
   font-weight: 800;
   letter-spacing: -1px;
+  animation: hero-enter 0.75s 0.22s ease both;
 }
 .hero-section__lead {
   color: var(--muted);
@@ -122,17 +139,20 @@
   line-height: 1.65;
   margin: 22px 0 34px;
   max-width: 520px;
+  animation: hero-enter 0.75s 0.32s ease both;
 }
 .hero-section__actions {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+  animation: hero-enter 0.75s 0.42s ease both;
 }
 .hero-stats {
   display: flex;
   gap: 38px;
   margin-top: 46px;
   flex-wrap: wrap;
+  animation: hero-enter 0.75s 0.52s ease both;
 }
 .hero-stats__item {
   display: flex;
@@ -188,6 +208,17 @@
   0%, 100% { transform: rotate(-45deg) translateY(0); }
   50% { transform: rotate(-45deg) translateY(-10px); }
 }
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes beacon {
+  0% { box-shadow: 0 0 0 0 rgba(244, 117, 33, 0.5); }
+  70%, 100% { box-shadow: 0 0 0 9px rgba(244, 117, 33, 0); }
+}
+@keyframes ambient-glow {
+  to { transform: translate(-80px, -45px) scale(1.18); opacity: 0.65; }
+}
 
 /* ============ SECTIONS ============ */
 .section--alt {
@@ -202,11 +233,29 @@
   gap: 22px;
 }
 .feature-card {
+  position: relative;
+  overflow: hidden;
   background: var(--card);
   border: 1px solid var(--card-border);
   border-radius: var(--radius);
   padding: 30px 26px;
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.feature-card::before,
+.step-card::before,
+.plan-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 20%, rgba(244, 117, 33, 0.08), transparent 75%);
+  transform: translateX(-110%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+.feature-card:hover::before,
+.step-card:hover::before,
+.plan-card:hover::before {
+  transform: translateX(110%);
 }
 .feature-card:hover {
   transform: translateY(-6px);
@@ -247,6 +296,11 @@
   border-radius: var(--radius);
   padding: 38px 30px 32px;
   overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.step-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(244, 117, 33, 0.4);
 }
 .step-card__num {
   position: absolute;
@@ -400,6 +454,24 @@
   border-block: 1px solid var(--card-border);
   overflow: hidden;
 }
+.cta-band::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  right: 8%;
+  top: -210px;
+  border: 1px solid rgba(244, 117, 33, 0.2);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 45px rgba(244, 117, 33, 0.035),
+    0 0 0 90px rgba(244, 117, 33, 0.02);
+  animation: orbit-pulse 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes orbit-pulse {
+  50% { transform: scale(1.08); opacity: 0.65; }
+}
 .cta-band__inner {
   display: flex;
   align-items: center;
@@ -470,7 +542,12 @@
 .footer__wa {
   display: inline-flex;
   margin-top: 8px;
+  color: #06270f !important;
 }
+.footer__wa svg {
+  color: #06270f !important;
+}
+
 .footer__bottom {
   border-top: 1px solid var(--card-border);
   padding: 22px 0;
